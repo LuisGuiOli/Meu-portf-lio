@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luis Guilherme — Portfólio & Projetos GitHub</title>
-  <meta name="description" content="Portfólio de projetos integrados automaticamente à API pública do GitHub." />
+  <meta name="description" content="Portfólio pessoal de Luis Guilherme (LuisGuiOli) integrado automaticamente aos repositórios do GitHub." />
 
-  <!-- Fontes Google: Space Grotesk (Títulos), Plus Jakarta Sans (Corpo) e JetBrains Mono (Tags/Métricas) -->
+  <!-- Fontes Google: Space Grotesk (Títulos), Plus Jakarta Sans (Corpo) e JetBrains Mono (Tags/Metadados) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -14,18 +14,18 @@
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Configuração personalizada de tokens de design (Neo-Editorial) -->
+  <!-- Tokens de Design Neo-Editorial -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            paper: '#FAF8F5',
-            ink: '#1C1917',
-            cobalt: '#2563EB',
-            terracotta: '#EA580C',
-            emeraldBrand: '#059669',
-            mustard: '#D97706',
+            paper: '#F8F6F1',
+            ink: '#18181B',
+            vermilion: '#EA580C',
+            cobalt: '#1D4ED8',
+            emeraldBrand: '#047857',
+            amberBrand: '#D97706',
           },
           fontFamily: {
             display: ['"Space Grotesk"', 'sans-serif'],
@@ -33,11 +33,9 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           boxShadow: {
-            'editorial': '4px 4px 0px #1C1917',
-            'editorial-sm': '2px 2px 0px #1C1917',
-            'editorial-lg': '6px 6px 0px #1C1917',
-            'editorial-cobalt': '4px 4px 0px #2563EB',
-            'editorial-terracotta': '4px 4px 0px #EA580C',
+            'editorial': '4px 4px 0px #18181B',
+            'editorial-sm': '2px 2px 0px #18181B',
+            'editorial-lg': '6px 6px 0px #18181B',
           }
         }
       }
@@ -45,133 +43,64 @@
   </script>
 </head>
 
-<body class="bg-paper text-ink font-sans antialiased selection:bg-mustard/30 selection:text-ink overflow-x-hidden min-h-screen flex flex-col">
+<body class="bg-paper text-ink font-sans antialiased selection:bg-amberBrand/25 selection:text-ink overflow-x-hidden min-h-screen flex flex-col">
 
   <!-- ===================================================================== -->
-  <!-- 1. BARRA SUPERIOR DE CONFIGURAÇÃO RÁPIDA DO GITHUB (RETRÁTIL)         -->
+  <!-- 1. HEADER FIXO MINIMALISTA                                            -->
   <!-- ===================================================================== -->
-  <div id="config-bar-wrapper" class="bg-ink text-paper border-b-2 border-ink sticky top-0 z-50">
-    <!-- Barra expandida -->
-    <div id="config-bar-content" class="max-w-6xl mx-auto px-4 sm:px-6 py-3">
-      <form id="github-config-form" class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <div class="flex items-center gap-2.5 text-xs sm:text-sm">
-          <span class="inline-flex items-center justify-center w-2.5 h-2.5 rounded-full bg-emeraldBrand animate-pulse shrink-0"></span>
-          <span class="font-mono text-paper/90">
-            <strong class="text-white font-semibold">API GitHub:</strong>
-            <span id="config-status-text">Modo exemplo ativo — teste qualquer usuário abaixo</span>
-          </span>
-        </div>
-
-        <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full md:w-auto">
-          <div class="relative flex-1 sm:w-64">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-xs text-stone-400 select-none">@</span>
-            <input
-              id="github-username-input"
-              type="text"
-              placeholder="seu-usuario-github"
-              autocomplete="off"
-              spellcheck="false"
-              aria-label="Nome de usuário do GitHub"
-              class="w-full pl-7 pr-3 py-2 text-sm font-mono bg-stone-800 text-white placeholder-stone-400 border border-stone-600 rounded-lg focus:outline-none focus:border-mustard focus:ring-1 focus:ring-mustard transition-colors"
-            />
-          </div>
-
-          <button
-            type="submit"
-            id="load-repos-btn"
-            class="px-4 py-2 text-xs sm:text-sm font-display font-semibold bg-cobalt hover:bg-blue-700 text-white rounded-lg border border-blue-400/40 transition-all active:translate-y-0.5 cursor-pointer whitespace-nowrap"
-          >
-            Carregar Repositórios
-          </button>
-
-          <button
-            type="button"
-            id="reset-demo-btn"
-            title="Voltar para o perfil de exemplo"
-            class="hidden px-3 py-2 text-xs font-mono text-stone-300 hover:text-white bg-stone-800 hover:bg-stone-700 border border-stone-600 rounded-lg transition-colors cursor-pointer"
-          >
-            Exemplo
-          </button>
-
-          <button
-            type="button"
-            id="toggle-config-bar-btn"
-            title="Ocultar barra de configuração"
-            aria-label="Ocultar barra de configuração"
-            class="p-2 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800 transition-colors cursor-pointer"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Botão flutuante discreto para reabrir a barra quando ocultada -->
-  <button
-    id="show-config-bar-btn"
-    type="button"
-    class="hidden fixed top-3 right-3 z-50 inline-flex items-center gap-2 px-3 py-2 bg-ink text-paper text-xs font-mono rounded-lg border-2 border-ink shadow-editorial-sm hover:bg-stone-800 transition-all cursor-pointer"
-  >
-    <span class="w-2 h-2 rounded-full bg-emeraldBrand"></span>
-    <span>Trocar GitHub</span>
-  </button>
-
-  <!-- ===================================================================== -->
-  <!-- NAVEGAÇÃO PRINCIPAL                                                   -->
-  <!-- ===================================================================== -->
-  <header class="max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-2">
-    <nav class="flex items-center justify-between bg-white border-2 border-ink rounded-2xl px-4 sm:px-6 py-3.5 shadow-editorial-sm">
-      <a href="#topo" class="flex items-center gap-2.5 group">
-        <span class="w-9 h-9 rounded-xl bg-cobalt text-white font-display font-bold text-lg flex items-center justify-center border-2 border-ink shadow-editorial-sm group-hover:-translate-y-0.5 transition-transform">
-          <span id="nav-monogram">LG</span>
+  <header class="sticky top-0 z-50 bg-paper/90 backdrop-blur-md border-b-2 border-ink">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-[4.5rem] flex items-center justify-between gap-4">
+      <!-- Marca / Nome -->
+      <a href="#sobre" class="flex items-center gap-2.5 group shrink-0">
+        <span class="w-9 h-9 rounded-xl bg-vermilion text-white font-display font-bold text-base flex items-center justify-center border-2 border-ink shadow-editorial-sm group-hover:-translate-y-0.5 transition-transform">
+          LG
         </span>
         <div class="leading-tight">
-          <span id="nav-brand-name" class="block font-display font-bold text-base sm:text-lg tracking-tight">Luis Guilherme</span>
-          <span class="block font-mono text-[11px] text-stone-500">portfólio.dev</span>
+          <span class="block font-display font-bold text-base sm:text-lg tracking-tight text-ink">Luis Guilherme</span>
+          <span class="block font-mono text-[11px] text-zinc-500">@LuisGuiOli</span>
         </div>
       </a>
 
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+      <!-- Links de navegação rápida -->
+      <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-700">
+        <a href="#sobre" class="hover:text-vermilion transition-colors">Sobre</a>
         <a href="#stack" class="hover:text-cobalt transition-colors">Stack</a>
-        <a href="#projetos" class="hover:text-terracotta transition-colors">Projetos</a>
-        <a href="#contato" class="hover:text-emeraldBrand transition-colors">Contato</a>
-      </div>
+        <a href="#projetos" class="hover:text-emeraldBrand transition-colors">Projetos</a>
+        <a href="#contato" class="hover:text-amberBrand transition-colors">Contato</a>
+      </nav>
 
+      <!-- Botão direto para o GitHub -->
       <a
-        id="nav-github-link"
-        href="https://github.com"
+        href="https://github.com/LuisGuiOli"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-mono font-semibold bg-paper hover:bg-mustard/15 border-2 border-ink rounded-xl shadow-editorial-sm hover:-translate-y-0.5 transition-all"
+        class="inline-flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-mono font-semibold bg-white hover:bg-ink hover:text-paper text-ink border-2 border-ink rounded-xl shadow-editorial-sm hover:-translate-y-0.5 transition-all shrink-0"
       >
         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
-        <span id="nav-github-handle">GitHub</span>
+        <span>GitHub</span>
       </a>
-    </nav>
+    </div>
   </header>
 
-  <main id="topo" class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-16 sm:space-y-20">
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-20 sm:space-y-24">
 
     <!-- ===================================================================== -->
-    <!-- 2. SEÇÃO HERO                                                         -->
+    <!-- 2. SEÇÃO HERO PERSONALIZADA                                           -->
     <!-- ===================================================================== -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-      <!-- Coluna de texto e CTAs -->
+    <section id="sobre" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- Coluna esquerda: Apresentação e CTAs -->
       <div class="lg:col-span-7 space-y-6">
-        <!-- Badge editorial superior -->
+        <!-- Badges de status e localização -->
         <div class="flex flex-wrap items-center gap-2.5">
-          <span id="hero-mode-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold bg-mustard/15 text-ink border-2 border-ink">
-            <span class="w-2 h-2 rounded-full bg-mustard"></span>
-            <span>Perfil de Exemplo</span>
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border-2 border-ink">
+            <span class="w-2 h-2 rounded-full bg-emeraldBrand animate-pulse"></span>
+            <span>Sincronizado ao vivo com GitHub</span>
           </span>
 
-          <span id="hero-location-badge" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-white text-stone-700 border-2 border-ink">
-            <svg class="w-3.5 h-3.5 text-terracotta" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <span id="hero-location-badge" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono bg-white text-zinc-700 border-2 border-ink">
+            <svg class="w-3.5 h-3.5 text-vermilion" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -179,72 +108,65 @@
           </span>
         </div>
 
-        <!-- Nome e título -->
+        <!-- Nome e subtítulo -->
         <div class="space-y-3">
-          <h1 id="hero-name" class="font-display font-bold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight text-ink">
+          <h1 id="hero-name" class="font-display font-bold text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.06] tracking-tight text-ink">
             Luis Guilherme
           </h1>
-          <p id="hero-role" class="font-display font-semibold text-lg sm:text-xl text-cobalt">
-            Desenvolvedor Full-Stack &amp; Engenharia da Computação
+          <p class="font-display font-semibold text-lg sm:text-xl text-cobalt">
+            Engenharia da Computação &amp; Desenvolvimento Full-Stack
           </p>
         </div>
 
-        <!-- Bio dinâmica -->
-        <p id="hero-bio" class="text-stone-700 text-base sm:text-lg leading-relaxed max-w-2xl">
-          Construindo aplicações web escaláveis, APIs robustas e interfaces claras com foco em engenharia limpa e ótima experiência do usuário. Este portfólio sincroniza automaticamente com repositórios do GitHub.
+        <!-- Bio carregada da API do GitHub com fallback -->
+        <p id="hero-bio" class="text-zinc-700 text-base sm:text-lg leading-relaxed max-w-2xl">
+          Estudante de Engenharia da Computação na UEFS &amp; Desenvolvedor Full-Stack focado em arquiteturas modernas, APIs e aplicações web.
         </p>
 
         <!-- Botões de ação -->
-        <div class="flex flex-wrap items-center gap-3 pt-1">
+        <div class="flex flex-wrap items-center gap-3.5 pt-1">
           <a
             href="#projetos"
-            class="inline-flex items-center gap-2 px-5 py-3 font-display font-semibold text-sm sm:text-base bg-cobalt text-white border-2 border-ink rounded-xl shadow-editorial hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0.5 transition-all"
+            class="inline-flex items-center gap-2 px-5 py-3 font-display font-semibold text-sm sm:text-base bg-vermilion text-white border-2 border-ink rounded-xl shadow-editorial hover:-translate-y-0.5 hover:bg-orange-700 active:translate-y-0.5 transition-all"
           >
-            <span>Ver Projetos</span>
+            <span>Explorar Projetos</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </a>
 
           <a
-            id="hero-github-btn"
-            href="https://github.com"
+            href="https://github.com/LuisGuiOli"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 font-display font-semibold text-sm sm:text-base bg-white text-ink border-2 border-ink rounded-xl shadow-editorial hover:-translate-y-0.5 hover:bg-paper active:translate-y-0.5 transition-all"
+            class="inline-flex items-center gap-2 px-5 py-3 font-display font-semibold text-sm sm:text-base bg-white text-ink border-2 border-ink rounded-xl shadow-editorial hover:-translate-y-0.5 hover:bg-zinc-100 active:translate-y-0.5 transition-all"
           >
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
             </svg>
-            <span>GitHub</span>
-          </a>
-
-          <a
-            href="#contato"
-            class="inline-flex items-center gap-2 px-5 py-3 font-display font-semibold text-sm sm:text-base bg-terracotta text-white border-2 border-ink rounded-xl shadow-editorial hover:-translate-y-0.5 hover:bg-orange-700 active:translate-y-0.5 transition-all"
-          >
-            <span>Contato</span>
+            <span>Ver GitHub</span>
           </a>
         </div>
       </div>
 
-      <!-- Coluna do Avatar com moldura editorial + Estatísticas rápidas -->
-      <div class="lg:col-span-5 flex flex-col items-center lg:items-end gap-6">
-        <!-- Moldura colorida do avatar -->
+      <!-- Coluna direita: Cartão de Perfil Editorial com Avatar + Métricas Reais -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
         <div class="relative w-full max-w-sm">
-          <!-- Camadas geométricas decorativas neo-editoriais -->
-          <div class="absolute -top-3 -left-3 w-full h-full rounded-2xl bg-mustard border-2 border-ink"></div>
-          <div class="relative bg-white border-2 border-ink rounded-2xl p-5 shadow-editorial">
+          <!-- Camada geométrica decorativa -->
+          <div class="absolute -top-3 -right-3 w-full h-full rounded-2xl bg-amberBrand border-2 border-ink"></div>
+
+          <div class="relative bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial space-y-5">
+            <!-- Avatar e identificação -->
             <div class="flex items-center gap-4">
               <div class="relative shrink-0">
                 <img
                   id="hero-avatar"
-                  src="https://placehold.co/240x240/2563EB/FFFFFF?text=LG"
-                  alt="Avatar do desenvolvedor"
-                  onerror="this.onerror=null; this.src='https://placehold.co/240x240/1C1917/FAF8F5?text=DEV';"
+                  src="https://github.com/LuisGuiOli.png"
+                  alt="Foto de perfil de Luis Guilherme no GitHub"
+                  onerror="this.onerror=null; this.src='https://placehold.co/240x240/18181B/F8F6F1?text=LG';"
                   class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-ink bg-paper"
                 />
-                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-emeraldBrand border-2 border-ink flex items-center justify-center" title="Disponível para projetos">
+                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-emeraldBrand border-2 border-ink flex items-center justify-center" title="Perfil ativo no GitHub">
                   <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -252,29 +174,38 @@
               </div>
 
               <div class="min-w-0">
-                <p id="card-username" class="font-mono text-xs font-semibold text-terracotta truncate">@luisguilherme</p>
-                <p id="card-fullname" class="font-display font-bold text-lg text-ink truncate">Luis Guilherme</p>
-                <div class="flex items-center gap-3 mt-1.5 text-xs font-mono text-stone-600">
-                  <span><strong id="stat-followers" class="text-ink">48</strong> seguidores</span>
-                  <span>•</span>
-                  <span><strong id="stat-following" class="text-ink">32</strong> seguindo</span>
-                </div>
+                <a
+                  href="https://github.com/LuisGuiOli"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-mono text-xs font-semibold text-vermilion hover:underline truncate block"
+                >
+                  github.com/LuisGuiOli
+                </a>
+                <p id="card-fullname" class="font-display font-bold text-xl text-ink truncate mt-0.5">
+                  Luis Guilherme
+                </p>
+                <p id="card-company" class="font-mono text-xs text-zinc-500 truncate mt-1">
+                  UEFS • Full-Stack
+                </p>
               </div>
             </div>
 
-            <!-- Grid de métricas rápidas -->
-            <div class="grid grid-cols-3 gap-2.5 mt-5 pt-4 border-t-2 border-dashed border-stone-200">
-              <div class="bg-paper border-2 border-ink rounded-xl p-2.5 text-center">
-                <span id="stat-repos" class="block font-display font-bold text-xl text-cobalt">18</span>
-                <span class="block font-mono text-[10px] uppercase tracking-wider text-stone-600 mt-0.5">Repos</span>
+            <!-- Métricas reais da API do GitHub -->
+            <div class="grid grid-cols-3 gap-2.5 pt-4 border-t-2 border-dashed border-zinc-200">
+              <div class="bg-paper border-2 border-ink rounded-xl p-3 text-center">
+                <span id="stat-repos" class="block font-display font-bold text-2xl text-cobalt">—</span>
+                <span class="block font-mono text-[10px] uppercase tracking-wider text-zinc-600 mt-0.5">Repos</span>
               </div>
-              <div class="bg-paper border-2 border-ink rounded-xl p-2.5 text-center">
-                <span id="stat-stars" class="block font-display font-bold text-xl text-mustard">64</span>
-                <span class="block font-mono text-[10px] uppercase tracking-wider text-stone-600 mt-0.5">Estrelas</span>
+
+              <div class="bg-paper border-2 border-ink rounded-xl p-3 text-center">
+                <span id="stat-followers" class="block font-display font-bold text-2xl text-emeraldBrand">—</span>
+                <span class="block font-mono text-[10px] uppercase tracking-wider text-zinc-600 mt-0.5">Seguidores</span>
               </div>
-              <div class="bg-paper border-2 border-ink rounded-xl p-2.5 text-center">
-                <span id="stat-main-lang" class="block font-display font-bold text-sm sm:text-base text-emeraldBrand truncate pt-0.5">TypeScript</span>
-                <span class="block font-mono text-[10px] uppercase tracking-wider text-stone-600 mt-1">Principal</span>
+
+              <div class="bg-paper border-2 border-ink rounded-xl p-3 text-center">
+                <span id="stat-stars" class="block font-display font-bold text-2xl text-amberBrand">—</span>
+                <span class="block font-mono text-[10px] uppercase tracking-wider text-zinc-600 mt-0.5">Estrelas</span>
               </div>
             </div>
           </div>
@@ -283,137 +214,131 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- 3. SEÇÃO DE STACK TECNOLÓGICA                                         -->
+    <!-- 3. SEÇÃO DE STACK TECNOLÓGICA (3 CATEGORIAS)                          -->
     <!-- ===================================================================== -->
     <section id="stack" class="scroll-mt-24 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-terracotta mb-1">
-            // 01. Ferramentas &amp; Tecnologias
+          <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-vermilion mb-1">
+            // 01. Especialidades
           </span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-ink">
             Stack Tecnológica
           </h2>
         </div>
-        <p class="text-sm text-stone-600 max-w-md">
-          Tecnologias utilizadas no desenvolvimento de aplicações full-stack, APIs e interfaces responsivas.
+        <p class="text-sm text-zinc-600 max-w-md">
+          Ferramentas, linguagens e frameworks utilizados no dia a dia para projetar e entregar software de ponta a ponta.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <!-- Categoria: Frontend -->
-        <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-editorial flex flex-col justify-between">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Categoria 1: Backend & Dados -->
+        <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial flex flex-col justify-between gap-5">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <h3 class="font-display font-bold text-base text-ink">Frontend</h3>
-              <span class="w-3 h-3 rounded-full bg-cobalt border border-ink"></span>
+              <h3 class="font-display font-bold text-lg text-ink">Backend &amp; Dados</h3>
+              <span class="w-3.5 h-3.5 rounded-full bg-emeraldBrand border-2 border-ink"></span>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">React</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">TypeScript</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-mustard/15 text-ink border border-mustard/40 rounded-lg">JavaScript</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-terracotta/10 text-terracotta border border-terracotta/30 rounded-lg">HTML</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">CSS</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/35 rounded-lg">Python</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/35 rounded-lg">FastAPI</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/35 rounded-lg">Django</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-vermilion/10 text-vermilion border border-vermilion/35 rounded-lg">Java</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/35 rounded-lg">PostgreSQL</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/35 rounded-lg">MongoDB</span>
             </div>
           </div>
-          <p class="mt-4 pt-3 border-t border-stone-200 font-mono text-[11px] text-stone-500">UI reativa &amp; responsiva</p>
+          <p class="pt-3 border-t border-zinc-200 font-mono text-[11px] text-zinc-500">
+            APIs REST, modelagem relacional &amp; NoSQL
+          </p>
         </div>
 
-        <!-- Categoria: Backend -->
-        <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-editorial flex flex-col justify-between">
+        <!-- Categoria 2: Frontend & UI/UX -->
+        <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial flex flex-col justify-between gap-5">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <h3 class="font-display font-bold text-base text-ink">Backend</h3>
-              <span class="w-3 h-3 rounded-full bg-terracotta border border-ink"></span>
+              <h3 class="font-display font-bold text-lg text-ink">Frontend &amp; UI/UX</h3>
+              <span class="w-3.5 h-3.5 rounded-full bg-cobalt border-2 border-ink"></span>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/30 rounded-lg">Python</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/30 rounded-lg">Django</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">FastAPI</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-terracotta/10 text-terracotta border border-terracotta/30 rounded-lg">Java</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/35 rounded-lg">React</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/35 rounded-lg">TypeScript</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-amberBrand/15 text-ink border border-amberBrand/45 rounded-lg">JavaScript</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-vermilion/10 text-vermilion border border-vermilion/35 rounded-lg">HTML</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/35 rounded-lg">CSS</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-vermilion/10 text-vermilion border border-vermilion/35 rounded-lg">Figma</span>
             </div>
           </div>
-          <p class="mt-4 pt-3 border-t border-stone-200 font-mono text-[11px] text-stone-500">APIs REST &amp; arquitetura</p>
+          <p class="pt-3 border-t border-zinc-200 font-mono text-[11px] text-zinc-500">
+            Interfaces responsivas, prototipagem &amp; UX
+          </p>
         </div>
 
-        <!-- Categoria: Banco de Dados & DevOps -->
-        <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-editorial flex flex-col justify-between">
+        <!-- Categoria 3: Infra & Ferramentas -->
+        <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial flex flex-col justify-between gap-5">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <h3 class="font-display font-bold text-base text-ink">Banco &amp; DevOps</h3>
-              <span class="w-3 h-3 rounded-full bg-emeraldBrand border border-ink"></span>
+              <h3 class="font-display font-bold text-lg text-ink">Infra &amp; Ferramentas</h3>
+              <span class="w-3.5 h-3.5 rounded-full bg-amberBrand border-2 border-ink"></span>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">Docker</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/30 rounded-lg">PostgreSQL</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/30 rounded-lg">MongoDB</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-cobalt/10 text-cobalt border border-cobalt/35 rounded-lg">Docker</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-zinc-100 text-ink border border-zinc-300 rounded-lg">Git &amp; GitHub</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-amberBrand/15 text-ink border border-amberBrand/45 rounded-lg">Vercel</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-zinc-100 text-ink border border-zinc-300 rounded-lg">REST APIs</span>
+              <span class="px-3 py-1 text-xs font-mono font-semibold bg-emeraldBrand/10 text-emeraldBrand border border-emeraldBrand/35 rounded-lg">Linux</span>
             </div>
           </div>
-          <p class="mt-4 pt-3 border-t border-stone-200 font-mono text-[11px] text-stone-500">Containers &amp; persistência</p>
-        </div>
-
-        <!-- Categoria: Design -->
-        <div class="bg-white border-2 border-ink rounded-2xl p-5 shadow-editorial flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-display font-bold text-base text-ink">Design &amp; UI</h3>
-              <span class="w-3 h-3 rounded-full bg-mustard border border-ink"></span>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-terracotta/10 text-terracotta border border-terracotta/30 rounded-lg">Figma</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-mustard/15 text-ink border border-mustard/40 rounded-lg">Prototipagem</span>
-              <span class="px-2.5 py-1 text-xs font-mono font-semibold bg-stone-100 text-ink border border-stone-300 rounded-lg">Design Systems</span>
-            </div>
-          </div>
-          <p class="mt-4 pt-3 border-t border-stone-200 font-mono text-[11px] text-stone-500">Interfaces limpas &amp; UX</p>
+          <p class="pt-3 border-t border-zinc-200 font-mono text-[11px] text-zinc-500">
+            Containers, versionamento &amp; deploy contínuo
+          </p>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- 4. SEÇÃO DE PROJETOS DO GITHUB (NÚCLEO DA APLICAÇÃO)                  -->
+    <!-- 4. SEÇÃO DE PROJETOS DO GITHUB (CORAÇÃO DO SITE)                      -->
     <!-- ===================================================================== -->
     <section id="projetos" class="scroll-mt-24 space-y-6">
-      <!-- Cabeçalho da seção -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-cobalt mb-1">
-            // 02. Repositórios Públicos
+            // 02. Código Aberto &amp; Repositórios
           </span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-ink flex flex-wrap items-center gap-3">
-            <span>Projetos Desenvolvidos</span>
+            <span>Projetos no GitHub</span>
             <span id="projects-count-pill" class="px-2.5 py-0.5 text-xs font-mono font-semibold bg-ink text-paper rounded-full">
-              4 exibidos
+              Carregando...
             </span>
           </h2>
         </div>
 
-        <p id="projects-source-note" class="text-xs sm:text-sm font-mono text-stone-600">
-          Exibindo projetos de exemplo — informe um usuário na barra superior.
+        <p class="text-xs sm:text-sm font-mono text-zinc-600">
+          Fonte ao vivo: <a href="https://github.com/LuisGuiOli?tab=repositories" target="_blank" rel="noopener noreferrer" class="underline hover:text-cobalt">github.com/LuisGuiOli</a>
         </p>
       </div>
 
-      <!-- Painel de controles: Busca, Ordenação, Checkbox Ocultar Forks e Filtros de Linguagem -->
+      <!-- Barra de Controles: Busca, Ordenação, Toggle Mostrar Forks e Filtros Dinâmicos -->
       <div class="bg-white border-2 border-ink rounded-2xl p-4 sm:p-5 shadow-editorial space-y-4">
         <div class="flex flex-col lg:flex-row gap-3 lg:items-center justify-between">
-          <!-- Campo de busca -->
+          <!-- Busca em tempo real -->
           <div class="relative flex-1">
-            <svg class="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
             </svg>
             <input
               id="search-input"
               type="text"
-              placeholder="Buscar por nome, descrição ou tópico (ex: react, api, docker)..."
-              aria-label="Buscar projetos"
-              class="w-full pl-10 pr-4 py-2.5 text-sm bg-paper border-2 border-ink rounded-xl placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-cobalt/30 focus:border-cobalt transition-all"
+              placeholder="Buscar por nome, descrição ou tópico..."
+              aria-label="Buscar repositórios"
+              class="w-full pl-10 pr-4 py-2.5 text-sm bg-paper border-2 border-ink rounded-xl placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cobalt/30 focus:border-cobalt transition-all"
             />
           </div>
 
-          <!-- Ordenação e Checkbox Ocultar Forks -->
+          <!-- Ordenação e Toggle Mostrar Forks -->
           <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
             <div class="flex items-center gap-2 flex-1 sm:flex-initial">
-              <label for="sort-select" class="text-xs font-mono font-semibold text-stone-600 whitespace-nowrap">Ordenar:</label>
+              <label for="sort-select" class="text-xs font-mono font-semibold text-zinc-600 whitespace-nowrap">Ordenar:</label>
               <select
                 id="sort-select"
                 class="w-full sm:w-auto px-3 py-2.5 text-sm font-medium bg-paper border-2 border-ink rounded-xl focus:outline-none focus:border-cobalt cursor-pointer"
@@ -424,150 +349,166 @@
               </select>
             </div>
 
-            <label class="inline-flex items-center gap-2.5 px-3.5 py-2.5 bg-paper border-2 border-ink rounded-xl cursor-pointer select-none hover:bg-stone-100 transition-colors">
+            <!-- Toggle discreto "Mostrar forks" (desativado por padrão) -->
+            <label class="inline-flex items-center gap-2.5 px-3.5 py-2.5 bg-paper border-2 border-ink rounded-xl cursor-pointer select-none hover:bg-zinc-100 transition-colors">
               <input
-                id="hide-forks-checkbox"
+                id="show-forks-checkbox"
                 type="checkbox"
-                checked
                 class="w-4 h-4 accent-cobalt rounded cursor-pointer"
               />
-              <span class="text-xs sm:text-sm font-medium text-ink whitespace-nowrap">Ocultar forks</span>
+              <span class="text-xs sm:text-sm font-medium text-ink whitespace-nowrap">Mostrar forks</span>
             </label>
           </div>
         </div>
 
-        <!-- Botões dinâmicos de filtro por linguagem -->
-        <div class="pt-3 border-t border-stone-200">
-          <div id="language-filters" class="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar por linguagem">
-            <!-- Gerado dinamicamente via JS -->
+        <!-- Filtros dinâmicos por linguagem -->
+        <div class="pt-3 border-t border-zinc-200">
+          <div id="language-filters" class="flex flex-wrap items-center gap-2" role="group" aria-label="Filtrar projetos por linguagem">
+            <span class="text-xs font-mono text-zinc-500">Carregando linguagens...</span>
           </div>
         </div>
       </div>
 
-      <!-- Banner de Erro amigável (oculto por padrão) -->
-      <div id="error-banner" class="hidden bg-terracotta/10 border-2 border-terracotta rounded-2xl p-5 shadow-editorial-sm">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-terracotta text-white flex items-center justify-center shrink-0 border-2 border-ink">
+      <!-- Estado de Erro Amigável (Rate Limit / Falha de Rede) -->
+      <div id="error-banner" class="hidden bg-vermilion/10 border-2 border-vermilion rounded-2xl p-6 shadow-editorial">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-vermilion text-white flex items-center justify-center shrink-0 border-2 border-ink">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
               </svg>
             </div>
-            <div>
-              <h3 id="error-title" class="font-display font-bold text-base text-ink">Não foi possível carregar o GitHub</h3>
-              <p id="error-message" class="text-sm text-stone-700 mt-0.5">Verifique o nome de usuário informado e tente novamente.</p>
+            <div class="space-y-1">
+              <h3 id="error-title" class="font-display font-bold text-base sm:text-lg text-ink">
+                Não foi possível carregar os repositórios agora
+              </h3>
+              <p id="error-message" class="text-sm text-zinc-700">
+                O limite público de requisições da API do GitHub pode ter sido atingido temporariamente.
+              </p>
             </div>
           </div>
-          <button
-            type="button"
-            id="error-fallback-btn"
-            class="px-4 py-2 text-xs sm:text-sm font-display font-semibold bg-white hover:bg-paper text-ink border-2 border-ink rounded-xl shadow-editorial-sm cursor-pointer whitespace-nowrap"
-          >
-            Voltar ao exemplo
-          </button>
+
+          <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button
+              type="button"
+              id="retry-fetch-btn"
+              class="px-4 py-2.5 text-xs sm:text-sm font-display font-semibold bg-ink hover:bg-zinc-800 text-paper border-2 border-ink rounded-xl shadow-editorial-sm cursor-pointer transition-all"
+            >
+              Tentar novamente
+            </button>
+            <a
+              href="https://github.com/LuisGuiOli"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2.5 text-xs sm:text-sm font-display font-semibold bg-white hover:bg-paper text-ink border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
+            >
+              Abrir GitHub Direto
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Skeleton Loading (exibido durante requisições à API) -->
-      <div id="loading-skeleton" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6" aria-busy="true" aria-label="Carregando repositórios">
-        <!-- 4 cards skeleton -->
+      <!-- Skeleton Cards Animados (exibidos enquanto carrega da API) -->
+      <div id="loading-skeleton" class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-busy="true" aria-label="Carregando projetos do GitHub">
         <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial animate-pulse space-y-4">
           <div class="flex justify-between items-start gap-4">
-            <div class="h-6 bg-stone-200 rounded-lg w-2/3"></div>
-            <div class="h-5 bg-stone-200 rounded-full w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-lg w-2/3"></div>
+            <div class="h-5 bg-zinc-200 rounded-full w-20"></div>
           </div>
           <div class="space-y-2">
-            <div class="h-4 bg-stone-200 rounded w-full"></div>
-            <div class="h-4 bg-stone-200 rounded w-5/6"></div>
+            <div class="h-4 bg-zinc-200 rounded w-full"></div>
+            <div class="h-4 bg-zinc-200 rounded w-5/6"></div>
           </div>
           <div class="flex gap-2 pt-2">
-            <div class="h-6 bg-stone-200 rounded-md w-16"></div>
-            <div class="h-6 bg-stone-200 rounded-md w-20"></div>
-            <div class="h-6 bg-stone-200 rounded-md w-14"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-20"></div>
           </div>
-          <div class="flex justify-between items-center pt-4 border-t border-stone-100">
-            <div class="h-4 bg-stone-200 rounded w-28"></div>
-            <div class="h-9 bg-stone-200 rounded-xl w-32"></div>
+          <div class="flex justify-between items-center pt-4 border-t border-zinc-100">
+            <div class="h-4 bg-zinc-200 rounded w-28"></div>
+            <div class="h-9 bg-zinc-200 rounded-xl w-32"></div>
           </div>
         </div>
+
         <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial animate-pulse space-y-4">
           <div class="flex justify-between items-start gap-4">
-            <div class="h-6 bg-stone-200 rounded-lg w-1/2"></div>
-            <div class="h-5 bg-stone-200 rounded-full w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-lg w-1/2"></div>
+            <div class="h-5 bg-zinc-200 rounded-full w-20"></div>
           </div>
           <div class="space-y-2">
-            <div class="h-4 bg-stone-200 rounded w-full"></div>
-            <div class="h-4 bg-stone-200 rounded w-4/5"></div>
+            <div class="h-4 bg-zinc-200 rounded w-full"></div>
+            <div class="h-4 bg-zinc-200 rounded w-4/5"></div>
           </div>
           <div class="flex gap-2 pt-2">
-            <div class="h-6 bg-stone-200 rounded-md w-20"></div>
-            <div class="h-6 bg-stone-200 rounded-md w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-20"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-14"></div>
           </div>
-          <div class="flex justify-between items-center pt-4 border-t border-stone-100">
-            <div class="h-4 bg-stone-200 rounded w-28"></div>
-            <div class="h-9 bg-stone-200 rounded-xl w-32"></div>
+          <div class="flex justify-between items-center pt-4 border-t border-zinc-100">
+            <div class="h-4 bg-zinc-200 rounded w-28"></div>
+            <div class="h-9 bg-zinc-200 rounded-xl w-32"></div>
           </div>
         </div>
+
         <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial animate-pulse space-y-4">
           <div class="flex justify-between items-start gap-4">
-            <div class="h-6 bg-stone-200 rounded-lg w-3/5"></div>
-            <div class="h-5 bg-stone-200 rounded-full w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-lg w-3/5"></div>
+            <div class="h-5 bg-zinc-200 rounded-full w-20"></div>
           </div>
           <div class="space-y-2">
-            <div class="h-4 bg-stone-200 rounded w-full"></div>
-            <div class="h-4 bg-stone-200 rounded w-3/4"></div>
+            <div class="h-4 bg-zinc-200 rounded w-full"></div>
+            <div class="h-4 bg-zinc-200 rounded w-3/4"></div>
           </div>
           <div class="flex gap-2 pt-2">
-            <div class="h-6 bg-stone-200 rounded-md w-16"></div>
-            <div class="h-6 bg-stone-200 rounded-md w-24"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-24"></div>
           </div>
-          <div class="flex justify-between items-center pt-4 border-t border-stone-100">
-            <div class="h-4 bg-stone-200 rounded w-28"></div>
-            <div class="h-9 bg-stone-200 rounded-xl w-32"></div>
+          <div class="flex justify-between items-center pt-4 border-t border-zinc-100">
+            <div class="h-4 bg-zinc-200 rounded w-28"></div>
+            <div class="h-9 bg-zinc-200 rounded-xl w-32"></div>
           </div>
         </div>
+
         <div class="bg-white border-2 border-ink rounded-2xl p-6 shadow-editorial animate-pulse space-y-4">
           <div class="flex justify-between items-start gap-4">
-            <div class="h-6 bg-stone-200 rounded-lg w-2/5"></div>
-            <div class="h-5 bg-stone-200 rounded-full w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-lg w-2/5"></div>
+            <div class="h-5 bg-zinc-200 rounded-full w-20"></div>
           </div>
           <div class="space-y-2">
-            <div class="h-4 bg-stone-200 rounded w-full"></div>
-            <div class="h-4 bg-stone-200 rounded w-5/6"></div>
+            <div class="h-4 bg-zinc-200 rounded w-full"></div>
+            <div class="h-4 bg-zinc-200 rounded w-5/6"></div>
           </div>
           <div class="flex gap-2 pt-2">
-            <div class="h-6 bg-stone-200 rounded-md w-14"></div>
-            <div class="h-6 bg-stone-200 rounded-md w-20"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-16"></div>
+            <div class="h-6 bg-zinc-200 rounded-md w-20"></div>
           </div>
-          <div class="flex justify-between items-center pt-4 border-t border-stone-100">
-            <div class="h-4 bg-stone-200 rounded w-28"></div>
-            <div class="h-9 bg-stone-200 rounded-xl w-32"></div>
+          <div class="flex justify-between items-center pt-4 border-t border-zinc-100">
+            <div class="h-4 bg-zinc-200 rounded w-28"></div>
+            <div class="h-9 bg-zinc-200 rounded-xl w-32"></div>
           </div>
         </div>
       </div>
 
       <!-- Grade de Cards de Projetos -->
-      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Cards renderizados dinamicamente via JS -->
+      <div id="projects-grid" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Cards injetados dinamicamente via JavaScript -->
       </div>
 
-      <!-- Estado vazio quando nenhum projeto corresponde aos filtros -->
+      <!-- Estado vazio para filtros sem resultados -->
       <div id="empty-state" class="hidden bg-white border-2 border-ink rounded-2xl p-10 text-center shadow-editorial space-y-4">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-mustard/15 border-2 border-ink flex items-center justify-center">
-          <svg class="w-7 h-7 text-mustard" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-amberBrand/15 border-2 border-ink flex items-center justify-center">
+          <svg class="w-7 h-7 text-amberBrand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
           </svg>
         </div>
         <div class="space-y-1">
-          <h3 class="font-display font-bold text-lg text-ink">Nenhum repositório encontrado</h3>
-          <p class="text-sm text-stone-600 max-w-md mx-auto">
-            Tente ajustar a busca, selecionar outra linguagem ou desmarcar a opção "Ocultar forks".
+          <h3 class="font-display font-bold text-lg text-ink">Nenhum projeto encontrado</h3>
+          <p class="text-sm text-zinc-600 max-w-md mx-auto">
+            Nenhum repositório corresponde aos filtros atuais. Tente limpar a busca ou ativar a opção "Mostrar forks".
           </p>
         </div>
         <button
           type="button"
           id="clear-filters-btn"
-          class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-cobalt text-white border-2 border-ink rounded-xl shadow-editorial-sm hover:bg-blue-700 cursor-pointer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-cobalt text-white border-2 border-ink rounded-xl shadow-editorial-sm hover:bg-blue-800 cursor-pointer transition-colors"
         >
           Limpar filtros
         </button>
@@ -577,74 +518,57 @@
   </main>
 
   <!-- ===================================================================== -->
-  <!-- 5. RODAPÉ & CONTATO (PRONTO PARA VERCEL)                              -->
+  <!-- 5. SEÇÃO DE CONTATO & RODAPÉ                                          -->
   <!-- ===================================================================== -->
   <footer id="contato" class="mt-16 border-t-2 border-ink bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-8">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-7 space-y-2">
           <span class="inline-block font-mono text-xs font-semibold uppercase tracking-widest text-emeraldBrand">
-            // Vamos conversar
+            // 03. Contato
           </span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-ink">
-            Tem um projeto ou oportunidade em mente?
+            Vamos construir algo juntos?
           </h2>
-          <p class="text-sm sm:text-base text-stone-600 max-w-xl">
-            Aberto para colaborações, projetos full-stack e desafios em engenharia de software.
+          <p class="text-sm sm:text-base text-zinc-600 max-w-xl">
+            Disponível para projetos full-stack, colaborações open-source e oportunidades em desenvolvimento de software.
           </p>
         </div>
 
-        <div class="md:col-span-5 flex flex-wrap md:justify-end gap-3">
+        <!-- Botões de contato renderizados a partir da configuração no topo do script -->
+        <div id="contact-links-container" class="md:col-span-5 flex flex-wrap md:justify-end gap-3">
           <a
-            id="footer-github-link"
-            href="https://github.com"
+            href="https://github.com/LuisGuiOli"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-paper hover:bg-cobalt hover:text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
+            class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-paper hover:bg-ink hover:text-paper text-ink border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
           >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
             <span>GitHub</span>
           </a>
-
-          <a
-            id="footer-linkedin-link"
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-paper hover:bg-cobalt hover:text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
-          >
-            <span>LinkedIn</span>
-          </a>
-
-          <button
-            type="button"
-            id="copy-email-btn"
-            data-email="contato@luisguilherme.dev"
-            class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-emeraldBrand text-white hover:bg-emerald-700 border-2 border-ink rounded-xl shadow-editorial-sm transition-all cursor-pointer"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span>Copiar Email</span>
-          </button>
         </div>
       </div>
 
-      <div class="pt-6 border-t-2 border-dashed border-stone-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-stone-600">
+      <div class="pt-6 border-t-2 border-dashed border-zinc-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-zinc-600">
         <p>
-          © <span id="current-year">2026</span> <strong id="footer-owner-name" class="text-ink">Luis Guilherme</strong>. Integrado à API pública do GitHub.
+          © <span id="current-year">2026</span> <strong class="text-ink">Luis Guilherme</strong> (@LuisGuiOli). Dados sincronizados via GitHub API.
         </p>
-
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-paper border border-ink rounded-lg">
-          <svg class="w-3.5 h-3.5 text-ink fill-current" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2L2 20h20L12 2z" />
+        <a
+          href="#sobre"
+          class="inline-flex items-center gap-1.5 text-ink hover:text-vermilion font-semibold transition-colors"
+        >
+          <span>Voltar ao topo</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
           </svg>
-          <span>Pronto para deploy na <strong class="text-ink">Vercel</strong> (HTML estático único)</span>
-        </div>
+        </a>
       </div>
     </div>
   </footer>
 
-  <!-- Toast de notificação discreto (substitui qualquer uso de alert) -->
+  <!-- Toast discreto para confirmações (ex: cópia de e-mail) -->
   <div
     id="toast"
     role="status"
@@ -652,208 +576,105 @@
     class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-ink text-paper px-4 py-3 rounded-xl border-2 border-ink shadow-editorial text-sm font-mono flex items-center gap-2.5"
   >
     <span class="w-2.5 h-2.5 rounded-full bg-emeraldBrand"></span>
-    <span id="toast-message">Copiado para a área de transferência!</span>
+    <span id="toast-message">Notificação</span>
   </div>
 
   <!-- ===================================================================== -->
-  <!-- LÓGICA JAVASCRIPT (API DO GITHUB, FILTROS, ESTADO E RENDERIZAÇÃO)     -->
+  <!-- SCRIPT PRINCIPAL — INTEGRAÇÃO EXCLUSIVA COM github.com/LuisGuiOli     -->
   <!-- ===================================================================== -->
   <script>
     // =========================================================================
-    // CONFIGURAÇÃO PRINCIPAL PARA DEPLOY NA VERCEL
+    // CONFIGURAÇÃO PESSOAL (EDITE AQUI SEUS LINKS DE CONTATO QUANDO QUISER)
     // =========================================================================
-    // Preencha com o seu nome de usuário do GitHub antes de subir para a Vercel.
-    // Exemplo: const DEFAULT_GITHUB_USERNAME = "luisguilherme";
-    // Deixe vazio ("") para iniciar no modo de exemplo com barra de teste aberta.
-    const DEFAULT_GITHUB_USERNAME = "";
+    const GITHUB_USERNAME = "LuisGuiOli";
+    const GITHUB_PROFILE_URL = "https://github.com/LuisGuiOli";
 
-    // Links pessoais editáveis do rodapé (atualize com seus links reais)
-    const PERSONAL_LINKS = {
-      linkedin: "https://www.linkedin.com",
-      email: "contato@luisguilherme.dev",
-      role: "Desenvolvedor Full-Stack & Engenharia da Computação"
+    const CONTACT_CONFIG = {
+      github: GITHUB_PROFILE_URL,
+      // Cole o link do seu LinkedIn entre as aspas para exibir o botão no rodapé:
+      // Exemplo: "https://www.linkedin.com/in/seu-perfil"
+      linkedin: "",
+      // Cole seu e-mail entre as aspas para exibir o botão "Copiar E-mail" no rodapé:
+      // Exemplo: "luis@exemplo.com"
+      email: ""
     };
 
-    // =========================================================================
-    // DADOS DE EXEMPLO (EXIBIDOS ENQUANTO NENHUM USUÁRIO REAL É CARREGADO)
-    // =========================================================================
-    const DEMO_PROFILE = {
-      login: "luisguilherme",
-      name: "Luis Guilherme",
-      role: PERSONAL_LINKS.role,
-      bio: "Construindo aplicações web escaláveis, APIs robustas e interfaces claras com foco em engenharia limpa e ótima experiência do usuário. Digite seu usuário na barra superior para carregar seus repositórios reais.",
-      location: "Brasil",
-      avatar_url: "https://placehold.co/240x240/2563EB/FFFFFF?text=LG",
-      html_url: "https://github.com",
-      public_repos: 18,
-      followers: 48,
-      following: 32,
-      isDemo: true
-    };
+    // Fallback da bio caso o perfil no GitHub esteja sem bio preenchida
+    const FALLBACK_BIO =
+      "Estudante de Engenharia da Computação na UEFS & Desenvolvedor Full-Stack focado em arquiteturas modernas, APIs e aplicações web.";
 
-    const DEMO_REPOS = [
-      {
-        id: 1,
-        name: "finflow-dashboard",
-        description: "Dashboard financeiro full-stack para controle de fluxo de caixa, metas e relatórios interativos com autenticação JWT.",
-        language: "TypeScript",
-        topics: ["react", "typescript", "tailwindcss", "postgresql"],
-        stargazers_count: 24,
-        forks_count: 6,
-        fork: false,
-        updated_at: "2026-10-28T14:20:00Z",
-        html_url: "https://github.com",
-        homepage: "https://vercel.com",
-        isDemo: true
-      },
-      {
-        id: 2,
-        name: "fastapi-task-engine",
-        description: "API REST assíncrona em Python com FastAPI, filas em background, documentação OpenAPI automática e deploy containerizado em Docker.",
-        language: "Python",
-        topics: ["python", "fastapi", "docker", "mongodb"],
-        stargazers_count: 19,
-        forks_count: 4,
-        fork: false,
-        updated_at: "2026-10-12T09:45:00Z",
-        html_url: "https://github.com",
-        homepage: "",
-        isDemo: true
-      },
-      {
-        id: 3,
-        name: "campus-hub-django",
-        description: "Plataforma acadêmica para gestão de projetos de Engenharia da Computação, reservas de laboratório e murais colaborativos.",
-        language: "Python",
-        topics: ["django", "postgresql", "bootstrap", "mvc"],
-        stargazers_count: 13,
-        forks_count: 3,
-        fork: false,
-        updated_at: "2026-09-19T18:10:00Z",
-        html_url: "https://github.com",
-        homepage: "https://vercel.com",
-        isDemo: true
-      },
-      {
-        id: 4,
-        name: "spring-inventory-service",
-        description: "Microsserviço de controle de estoque e pedidos desenvolvido em Java com testes unitários, validações e migrations versionadas.",
-        language: "Java",
-        topics: ["java", "rest-api", "docker", "clean-architecture"],
-        stargazers_count: 8,
-        forks_count: 2,
-        fork: false,
-        updated_at: "2026-08-30T11:05:00Z",
-        html_url: "https://github.com",
-        homepage: "",
-        isDemo: true
-      }
-    ];
-
-    // Cores editoriais mapeadas para linguagens populares do GitHub
+    // Cores editoriais para linguagens populares do GitHub
     const LANGUAGE_COLORS = {
+      Python: "#047857",
+      TypeScript: "#1D4ED8",
       JavaScript: "#D97706",
-      TypeScript: "#2563EB",
-      Python: "#059669",
       Java: "#EA580C",
       HTML: "#EA580C",
-      CSS: "#2563EB",
-      "C#": "#059669",
+      CSS: "#1D4ED8",
       "C++": "#DC2626",
-      C: "#57534E",
+      C: "#52525B",
+      "C#": "#047857",
       Go: "#0284C7",
       Rust: "#B45309",
       PHP: "#4F46E5",
-      Ruby: "#DC2626",
-      Kotlin: "#7C3AED",
-      Swift: "#EA580C",
+      Shell: "#047857",
       Dart: "#0284C7",
-      Shell: "#059669",
-      Vue: "#059669",
-      Jupyter: "#EA580C"
+      Kotlin: "#7C3AED",
+      "Jupyter Notebook": "#EA580C",
+      Vue: "#047857",
+      SCSS: "#BE185D"
     };
 
     // =========================================================================
-    // ESTADO GLOBAL DA APLICAÇÃO
+    // ESTADO DA APLICAÇÃO
     // =========================================================================
     const state = {
-      profile: { ...DEMO_PROFILE },
-      repos: [...DEMO_REPOS],
-      isDemo: true,
+      repos: [],
       selectedLanguage: "Todos",
       searchQuery: "",
       sortBy: "updated",
-      hideForks: true,
-      isLoading: false
+      showForks: false
     };
 
     // =========================================================================
-    // REFERÊNCIAS AOS ELEMENTOS DO DOM
+    // ELEMENTOS DO DOM
     // =========================================================================
     const dom = {
-      configBarWrapper: document.getElementById("config-bar-wrapper"),
-      showConfigBarBtn: document.getElementById("show-config-bar-btn"),
-      toggleConfigBarBtn: document.getElementById("toggle-config-bar-btn"),
-      configForm: document.getElementById("github-config-form"),
-      usernameInput: document.getElementById("github-username-input"),
-      loadReposBtn: document.getElementById("load-repos-btn"),
-      resetDemoBtn: document.getElementById("reset-demo-btn"),
-      configStatusText: document.getElementById("config-status-text"),
-
-      // Nav & Hero
-      navMonogram: document.getElementById("nav-monogram"),
-      navBrandName: document.getElementById("nav-brand-name"),
-      navGithubLink: document.getElementById("nav-github-link"),
-      navGithubHandle: document.getElementById("nav-github-handle"),
-      heroModeBadge: document.getElementById("hero-mode-badge"),
+      heroName: document.getElementById("hero-name"),
+      heroBio: document.getElementById("hero-bio"),
+      heroAvatar: document.getElementById("hero-avatar"),
       heroLocationBadge: document.getElementById("hero-location-badge"),
       heroLocationText: document.getElementById("hero-location-text"),
-      heroName: document.getElementById("hero-name"),
-      heroRole: document.getElementById("hero-role"),
-      heroBio: document.getElementById("hero-bio"),
-      heroGithubBtn: document.getElementById("hero-github-btn"),
-      heroAvatar: document.getElementById("hero-avatar"),
-      cardUsername: document.getElementById("card-username"),
       cardFullname: document.getElementById("card-fullname"),
-      statFollowers: document.getElementById("stat-followers"),
-      statFollowing: document.getElementById("stat-following"),
+      cardCompany: document.getElementById("card-company"),
       statRepos: document.getElementById("stat-repos"),
+      statFollowers: document.getElementById("stat-followers"),
       statStars: document.getElementById("stat-stars"),
-      statMainLang: document.getElementById("stat-main-lang"),
 
-      // Projetos & Controles
       projectsCountPill: document.getElementById("projects-count-pill"),
-      projectsSourceNote: document.getElementById("projects-source-note"),
       searchInput: document.getElementById("search-input"),
       sortSelect: document.getElementById("sort-select"),
-      hideForksCheckbox: document.getElementById("hide-forks-checkbox"),
+      showForksCheckbox: document.getElementById("show-forks-checkbox"),
       languageFilters: document.getElementById("language-filters"),
-      errorBanner: document.getElementById("error-banner"),
-      errorTitle: document.getElementById("error-title"),
-      errorMessage: document.getElementById("error-message"),
-      errorFallbackBtn: document.getElementById("error-fallback-btn"),
       loadingSkeleton: document.getElementById("loading-skeleton"),
       projectsGrid: document.getElementById("projects-grid"),
       emptyState: document.getElementById("empty-state"),
       clearFiltersBtn: document.getElementById("clear-filters-btn"),
+      errorBanner: document.getElementById("error-banner"),
+      errorTitle: document.getElementById("error-title"),
+      errorMessage: document.getElementById("error-message"),
+      retryFetchBtn: document.getElementById("retry-fetch-btn"),
 
-      // Rodapé & Toast
-      footerGithubLink: document.getElementById("footer-github-link"),
-      footerLinkedinLink: document.getElementById("footer-linkedin-link"),
-      footerOwnerName: document.getElementById("footer-owner-name"),
-      copyEmailBtn: document.getElementById("copy-email-btn"),
+      contactLinksContainer: document.getElementById("contact-links-container"),
       currentYear: document.getElementById("current-year"),
       toast: document.getElementById("toast"),
       toastMessage: document.getElementById("toast-message")
     };
 
     // =========================================================================
-    // UTILITÁRIOS
+    // FUNÇÕES UTILITÁRIAS
     // =========================================================================
 
-    /**
-     * Escapa caracteres HTML para evitar injeção XSS ao renderizar dados da API.
-     */
     function escapeHTML(str) {
       if (!str) return "";
       return String(str)
@@ -864,9 +685,6 @@
         .replace(/'/g, "&#039;");
     }
 
-    /**
-     * Normaliza a URL do campo `homepage` do GitHub (garante protocolo http/https).
-     */
     function normalizeHomepageUrl(url) {
       if (!url || typeof url !== "string") return "";
       const trimmed = url.trim();
@@ -875,9 +693,6 @@
       return `https://${trimmed}`;
     }
 
-    /**
-     * Formata data ISO em pt-BR (ex: "28 out. 2026").
-     */
     function formatDatePtBR(isoString) {
       try {
         const date = new Date(isoString);
@@ -892,41 +707,11 @@
       }
     }
 
-    /**
-     * Gera iniciais a partir de um nome (ex: "Luis Guilherme" -> "LG").
-     */
-    function getInitials(name) {
-      if (!name) return "DEV";
-      const parts = name.trim().split(/\s+/).filter(Boolean);
-      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-    }
-
-    /**
-     * Calcula a linguagem mais frequente entre os repositórios (ignorando forks se desejado).
-     */
-    function getPrimaryLanguage(repos) {
-      const counts = {};
-      repos.forEach((repo) => {
-        if (repo.language) {
-          counts[repo.language] = (counts[repo.language] || 0) + 1;
-        }
-      });
-      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-      return sorted.length > 0 ? sorted[0][0] : "—";
-    }
-
-    /**
-     * Retorna a cor associada a uma linguagem de programação.
-     */
     function getLanguageColor(language) {
-      if (!language) return "#78716C";
-      return LANGUAGE_COLORS[language] || "#2563EB";
+      if (!language) return "#71717A";
+      return LANGUAGE_COLORS[language] || "#1D4ED8";
     }
 
-    /**
-     * Exibe um toast discreto na parte inferior direita da tela.
-     */
     let toastTimer = null;
     function showToast(message) {
       dom.toastMessage.textContent = message;
@@ -939,9 +724,6 @@
       }, 3000);
     }
 
-    /**
-     * Copia texto usando document.execCommand('copy') para máxima compatibilidade em iframes.
-     */
     function copyTextToClipboard(text) {
       try {
         const textarea = document.createElement("textarea");
@@ -953,215 +735,108 @@
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        showToast(`Email copiado: ${text}`);
+        showToast(`E-mail copiado: ${text}`);
       } catch {
-        showToast(`Email: ${text}`);
+        showToast(`E-mail: ${text}`);
       }
     }
 
     // =========================================================================
-    // CONSUMO DA API PÚBLICA DO GITHUB
+    // CONSUMO DA API PÚBLICA DO GITHUB (EXCLUSIVO PARA LuisGuiOli)
     // =========================================================================
 
-    /**
-     * Busca perfil e repositórios públicos de um usuário do GitHub.
-     */
-    async function fetchGitHubPortfolio(rawUsername) {
-      const username = rawUsername.trim().replace(/^@/, "");
-      if (!username) {
-        showToast("Digite um nome de usuário do GitHub.");
-        dom.usernameInput.focus();
-        return;
-      }
-
-      setLoadingState(true);
-      hideError();
+    async function loadGitHubData() {
+      dom.errorBanner.classList.add("hidden");
+      dom.emptyState.classList.add("hidden");
+      dom.projectsGrid.classList.add("hidden");
+      dom.loadingSkeleton.classList.remove("hidden");
+      dom.projectsCountPill.textContent = "Carregando...";
 
       try {
-        const encodedUser = encodeURIComponent(username);
-        const [profileRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${encodedUser}`, {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
             headers: { Accept: "application/vnd.github+json" }
           }),
-          fetch(`https://api.github.com/users/${encodedUser}/repos?sort=updated&per_page=100`, {
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`, {
             headers: { Accept: "application/vnd.github+json" }
           })
         ]);
 
-        // Tratamento específico para códigos de erro da API do GitHub
-        if (profileRes.status === 404) {
-          throw new Error(`Usuário "@${username}" não encontrado no GitHub. Verifique a ortografia e tente novamente.`);
-        }
-
-        if (profileRes.status === 403 || reposRes.status === 403) {
-          const resetHeader = profileRes.headers.get("X-RateLimit-Reset") || reposRes.headers.get("X-RateLimit-Reset");
-          let resetMsg = "Tente novamente em alguns minutos.";
+        if (userRes.status === 403 || reposRes.status === 403) {
+          const resetHeader = userRes.headers.get("X-RateLimit-Reset") || reposRes.headers.get("X-RateLimit-Reset");
+          let resetHint = "Aguarde alguns minutos e tente novamente.";
           if (resetHeader) {
             const resetDate = new Date(Number(resetHeader) * 1000);
             const hora = resetDate.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-            resetMsg = `O limite público da API do GitHub (60 req/hora) foi atingido. Renovação prevista às ${hora}.`;
+            resetHint = `O limite público da API do GitHub (60 requisições/hora) foi atingido. Renovação prevista às ${hora}.`;
           }
-          throw new Error(resetMsg);
+          throw new Error(resetHint);
         }
 
-        if (!profileRes.ok || !reposRes.ok) {
-          throw new Error("O GitHub retornou uma resposta inesperada. Tente novamente em instantes.");
+        if (!userRes.ok || !reposRes.ok) {
+          throw new Error("Não foi possível obter resposta da API do GitHub no momento.");
         }
 
-        const profileData = await profileRes.json();
+        const userData = await userRes.json();
         const reposData = await reposRes.json();
 
-        // Atualiza o estado com dados reais
-        state.profile = {
-          login: profileData.login,
-          name: profileData.name || profileData.login,
-          role: profileData.company ? `${profileData.company}` : "Desenvolvedor no GitHub",
-          bio: profileData.bio || "Desenvolvedor construindo projetos open-source e aplicações versionadas no GitHub.",
-          location: profileData.location || "",
-          avatar_url: profileData.avatar_url,
-          html_url: profileData.html_url,
-          public_repos: profileData.public_repos ?? reposData.length,
-          followers: profileData.followers ?? 0,
-          following: profileData.following ?? 0,
-          isDemo: false
-        };
-
         state.repos = Array.isArray(reposData) ? reposData : [];
-        state.isDemo = false;
-        state.selectedLanguage = "Todos";
-        state.searchQuery = "";
-        dom.searchInput.value = "";
 
-        renderAll();
-        showToast(`Repositórios de @${profileData.login} carregados!`);
-      } catch (err) {
-        showError("Não foi possível carregar o GitHub", err.message || "Erro de conexão ao consultar a API do GitHub.");
-      } finally {
-        setLoadingState(false);
-      }
-    }
+        renderProfile(userData, state.repos);
+        renderLanguageFilters();
+        renderProjects();
 
-    /**
-     * Restaura os dados iniciais de exemplo.
-     */
-    function loadDemoMode() {
-      hideError();
-      state.profile = { ...DEMO_PROFILE };
-      state.repos = [...DEMO_REPOS];
-      state.isDemo = true;
-      state.selectedLanguage = "Todos";
-      state.searchQuery = "";
-      dom.searchInput.value = "";
-      dom.usernameInput.value = "";
-      renderAll();
-    }
-
-    // =========================================================================
-    // CONTROLE DE LOADING E ERROS
-    // =========================================================================
-
-    function setLoadingState(loading) {
-      state.isLoading = loading;
-      dom.loadReposBtn.disabled = loading;
-      dom.loadReposBtn.textContent = loading ? "Carregando..." : "Carregar Repositórios";
-
-      if (loading) {
-        dom.loadingSkeleton.classList.remove("hidden");
-        dom.projectsGrid.classList.add("hidden");
-        dom.emptyState.classList.add("hidden");
-      } else {
         dom.loadingSkeleton.classList.add("hidden");
         dom.projectsGrid.classList.remove("hidden");
+      } catch (err) {
+        dom.loadingSkeleton.classList.add("hidden");
+        dom.projectsGrid.classList.add("hidden");
+        dom.projectsCountPill.textContent = "Indisponível";
+        dom.errorTitle.textContent = "Limite da API do GitHub ou falha de conexão";
+        dom.errorMessage.textContent =
+          err.message || "Não foi possível carregar os repositórios agora. Você pode tentar novamente ou acessar o perfil diretamente.";
+        dom.errorBanner.classList.remove("hidden");
       }
-    }
-
-    function showError(title, message) {
-      dom.errorTitle.textContent = title;
-      dom.errorMessage.textContent = message;
-      dom.errorBanner.classList.remove("hidden");
-    }
-
-    function hideError() {
-      dom.errorBanner.classList.add("hidden");
     }
 
     // =========================================================================
-    // RENDERIZAÇÃO DO PERFIL, FILTROS E CARDS DE PROJETOS
+    // RENDERIZAÇÃO DO PERFIL, FILTROS E CARDS
     // =========================================================================
 
-    function renderProfile() {
-      const p = state.profile;
-      const totalStars = state.repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
-      const mainLang = getPrimaryLanguage(state.repos);
+    function renderProfile(user, repos) {
+      const displayName = user.name && user.name.trim() ? user.name.trim() : "Luis Guilherme";
+      const bioText = user.bio && user.bio.trim() ? user.bio.trim() : FALLBACK_BIO;
+      const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
 
-      // Barra superior
-      if (state.isDemo) {
-        dom.configStatusText.textContent = "Modo exemplo ativo — teste qualquer usuário abaixo";
-        dom.resetDemoBtn.classList.add("hidden");
-      } else {
-        dom.configStatusText.textContent = `Conectado a @${p.login} (${state.repos.length} repositórios carregados)`;
-        dom.resetDemoBtn.classList.remove("hidden");
+      dom.heroName.textContent = displayName;
+      dom.cardFullname.textContent = displayName;
+      dom.heroBio.textContent = bioText;
+
+      if (user.avatar_url) {
+        dom.heroAvatar.src = user.avatar_url;
       }
 
-      // Nav & Título da aba
-      document.title = `${p.name} — Portfólio & Projetos GitHub`;
-      dom.navMonogram.textContent = getInitials(p.name);
-      dom.navBrandName.textContent = p.name;
-      dom.navGithubLink.href = p.html_url;
-      dom.navGithubHandle.textContent = `@${p.login}`;
-
-      // Badge de modo (Exemplo vs GitHub ao Vivo)
-      if (state.isDemo) {
-        dom.heroModeBadge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold bg-mustard/15 text-ink border-2 border-ink";
-        dom.heroModeBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-mustard"></span><span>Perfil de Exemplo</span>`;
-      } else {
-        dom.heroModeBadge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold bg-emeraldBrand/15 text-ink border-2 border-ink";
-        dom.heroModeBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emeraldBrand"></span><span>Sincronizado com GitHub</span>`;
-      }
-
-      // Localização
-      if (p.location) {
+      if (user.location && user.location.trim()) {
+        dom.heroLocationText.textContent = user.location.trim();
         dom.heroLocationBadge.classList.remove("hidden");
-        dom.heroLocationText.textContent = p.location;
       } else {
         dom.heroLocationBadge.classList.add("hidden");
       }
 
-      // Textos principais do Hero
-      dom.heroName.textContent = p.name;
-      dom.heroRole.textContent = p.role;
-      dom.heroBio.textContent = p.bio;
-      dom.heroGithubBtn.href = p.html_url;
+      if (user.company && user.company.trim()) {
+        dom.cardCompany.textContent = user.company.trim();
+      }
 
-      // Avatar e Card de métricas
-      dom.heroAvatar.src = p.avatar_url;
-      dom.heroAvatar.alt = `Avatar de ${p.name}`;
-      dom.cardUsername.textContent = `@${p.login}`;
-      dom.cardFullname.textContent = p.name;
-      dom.statFollowers.textContent = p.followers;
-      dom.statFollowing.textContent = p.following;
-      dom.statRepos.textContent = p.public_repos;
+      dom.statRepos.textContent = user.public_repos ?? repos.length;
+      dom.statFollowers.textContent = user.followers ?? 0;
       dom.statStars.textContent = totalStars;
-      dom.statMainLang.textContent = mainLang;
-
-      // Rodapé
-      dom.footerGithubLink.href = p.html_url;
-      dom.footerOwnerName.textContent = p.name;
-
-      // Nota da seção de projetos
-      dom.projectsSourceNote.textContent = state.isDemo
-        ? "Exibindo projetos de exemplo — informe um usuário na barra superior."
-        : `Sincronizado ao vivo via API pública de github.com/${p.login}`;
     }
 
-    /**
-     * Gera dinamicamente os botões de filtro de linguagem com base nos repositórios atuais.
-     */
     function renderLanguageFilters() {
-      const baseRepos = state.hideForks ? state.repos.filter((r) => !r.fork) : state.repos;
+      const visibleBase = state.showForks ? state.repos : state.repos.filter((r) => !r.fork);
       const counts = {};
 
-      baseRepos.forEach((repo) => {
+      visibleBase.forEach((repo) => {
         const lang = repo.language || "Outros";
         counts[lang] = (counts[lang] || 0) + 1;
       });
@@ -1172,24 +847,24 @@
         return counts[b] - counts[a];
       });
 
-      // Se a linguagem selecionada não existir mais após ocultar forks, volta para "Todos"
+      // Reseta para "Todos" caso a linguagem atual não exista mais após alterar o filtro de forks
       if (state.selectedLanguage !== "Todos" && !counts[state.selectedLanguage]) {
         state.selectedLanguage = "Todos";
       }
 
-      const allButtons = [
-        { name: "Todos", count: baseRepos.length },
+      const items = [
+        { name: "Todos", count: visibleBase.length },
         ...languages.map((lang) => ({ name: lang, count: counts[lang] }))
       ];
 
-      dom.languageFilters.innerHTML = allButtons
+      dom.languageFilters.innerHTML = items
         .map((item) => {
-          const isActive = state.selectedLanguage === item.name;
-          const activeClasses = isActive
+          const active = state.selectedLanguage === item.name;
+          const classes = active
             ? "bg-ink text-paper border-ink shadow-editorial-sm"
-            : "bg-paper text-ink border-ink/30 hover:border-ink hover:bg-stone-100";
+            : "bg-paper text-ink border-ink/30 hover:border-ink hover:bg-zinc-100";
 
-          const dotHTML =
+          const dot =
             item.name !== "Todos"
               ? `<span class="w-2 h-2 rounded-full shrink-0" style="background-color: ${getLanguageColor(item.name)}"></span>`
               : "";
@@ -1198,9 +873,9 @@
             <button
               type="button"
               data-lang="${escapeHTML(item.name)}"
-              class="lang-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold border-2 rounded-xl transition-all cursor-pointer ${activeClasses}"
+              class="lang-filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold border-2 rounded-xl transition-all cursor-pointer ${classes}"
             >
-              ${dotHTML}
+              ${dot}
               <span>${escapeHTML(item.name)}</span>
               <span class="opacity-70">(${item.count})</span>
             </button>
@@ -1208,7 +883,6 @@
         })
         .join("");
 
-      // Eventos de clique nos botões de linguagem
       dom.languageFilters.querySelectorAll(".lang-filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           state.selectedLanguage = btn.getAttribute("data-lang");
@@ -1218,30 +892,27 @@
       });
     }
 
-    /**
-     * Filtra, ordena e renderiza os cards de projetos.
-     */
     function renderProjects() {
       const query = state.searchQuery.trim().toLowerCase();
 
       // 1. Filtragem
-      let filtered = state.repos.filter((repo) => {
-        if (state.hideForks && repo.fork) return false;
+      const filtered = state.repos.filter((repo) => {
+        if (!state.showForks && repo.fork) return false;
 
-        const repoLang = repo.language || "Outros";
-        if (state.selectedLanguage !== "Todos" && repoLang !== state.selectedLanguage) {
+        const lang = repo.language || "Outros";
+        if (state.selectedLanguage !== "Todos" && lang !== state.selectedLanguage) {
           return false;
         }
 
         if (query) {
-          const nameMatch = (repo.name || "").toLowerCase().includes(query);
-          const descMatch = (repo.description || "").toLowerCase().includes(query);
-          const langMatch = (repo.language || "").toLowerCase().includes(query);
-          const topicsMatch = Array.isArray(repo.topics)
+          const inName = (repo.name || "").toLowerCase().includes(query);
+          const inDesc = (repo.description || "").toLowerCase().includes(query);
+          const inLang = (repo.language || "").toLowerCase().includes(query);
+          const inTopics = Array.isArray(repo.topics)
             ? repo.topics.some((t) => t.toLowerCase().includes(query))
             : false;
 
-          if (!nameMatch && !descMatch && !langMatch && !topicsMatch) return false;
+          if (!inName && !inDesc && !inLang && !inTopics) return false;
         }
 
         return true;
@@ -1255,15 +926,12 @@
         if (state.sortBy === "name") {
           return (a.name || "").localeCompare(b.name || "", "pt-BR");
         }
-        // Padrão: mais recentes
         return new Date(b.updated_at || 0) - new Date(a.updated_at || 0);
       });
 
-      // Atualiza contador
       dom.projectsCountPill.textContent =
-        filtered.length === 1 ? "1 exibido" : `${filtered.length} exibidos`;
+        filtered.length === 1 ? "1 projeto" : `${filtered.length} projetos`;
 
-      // Estado vazio
       if (filtered.length === 0) {
         dom.projectsGrid.innerHTML = "";
         dom.emptyState.classList.remove("hidden");
@@ -1276,10 +944,10 @@
       dom.projectsGrid.innerHTML = filtered
         .map((repo) => {
           const name = escapeHTML(repo.name);
-          const description = repo.description
-            ? escapeHTML(repo.description)
-            : "Projeto versionado no GitHub. Acesse o repositório para explorar o código-fonte, arquitetura e instruções de execução.";
-          const isFallbackDesc = !repo.description;
+          const hasDesc = Boolean(repo.description && repo.description.trim());
+          const description = hasDesc
+            ? escapeHTML(repo.description.trim())
+            : "Repositório público no GitHub. Acesse o código-fonte para explorar a arquitetura, arquivos e detalhes de implementação.";
           const language = repo.language ? escapeHTML(repo.language) : "Sem linguagem";
           const langColor = getLanguageColor(repo.language);
           const stars = repo.stargazers_count || 0;
@@ -1287,12 +955,10 @@
           const updatedAt = formatDatePtBR(repo.updated_at);
           const repoUrl = escapeHTML(repo.html_url);
           const demoUrl = normalizeHomepageUrl(repo.homepage);
-          const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 5) : [];
+          const topics = Array.isArray(repo.topics) ? repo.topics.slice(0, 6) : [];
 
-          const badgeHTML = repo.isDemo
-            ? `<span class="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-mustard/20 text-ink border border-ink rounded-md shrink-0">Exemplo</span>`
-            : repo.fork
-            ? `<span class="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-400 rounded-md shrink-0">Fork</span>`
+          const forkBadge = repo.fork
+            ? `<span class="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-zinc-100 text-zinc-600 border border-zinc-300 rounded-md shrink-0">Fork</span>`
             : "";
 
           const topicsHTML =
@@ -1301,20 +967,20 @@
                   ${topics
                     .map(
                       (topic) =>
-                        `<span class="px-2 py-0.5 text-[11px] font-mono bg-paper text-stone-700 border border-stone-300 rounded-md">#${escapeHTML(topic)}</span>`
+                        `<span class="px-2 py-0.5 text-[11px] font-mono bg-paper text-zinc-700 border border-zinc-300 rounded-md">#${escapeHTML(topic)}</span>`
                     )
                     .join("")}
                 </div>`
               : "";
 
-          const demoBtnHTML = demoUrl
+          const demoButtonHTML = demoUrl
             ? `<a
                 href="${escapeHTML(demoUrl)}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-display font-semibold bg-emeraldBrand hover:bg-emerald-700 text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
+                class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-display font-semibold bg-emeraldBrand hover:bg-emerald-800 text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all"
               >
-                <span>Demo ao Vivo</span>
+                <span>Live Demo</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -1324,7 +990,7 @@
           return `
             <article class="group bg-white border-2 border-ink rounded-2xl p-5 sm:p-6 shadow-editorial hover:-translate-y-1 transition-all flex flex-col justify-between gap-4">
               <div class="space-y-3">
-                <!-- Título + selo -->
+                <!-- Nome do repositório + badge de linguagem -->
                 <div class="flex items-start justify-between gap-3">
                   <a
                     href="${repoUrl}"
@@ -1334,49 +1000,47 @@
                   >
                     ${name}
                   </a>
-                  ${badgeHTML}
+
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    ${forkBadge}
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono font-semibold bg-paper text-ink border border-ink rounded-lg">
+                      <span class="w-2 h-2 rounded-full" style="background-color: ${langColor}"></span>
+                      <span>${language}</span>
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Descrição -->
-                <p class="text-sm leading-relaxed ${isFallbackDesc ? "text-stone-500 italic" : "text-stone-700"}">
+                <p class="text-sm leading-relaxed ${hasDesc ? "text-zinc-700" : "text-zinc-500 italic"}">
                   ${description}
                 </p>
 
-                <!-- Tópicos do GitHub -->
+                <!-- Tópicos -->
                 ${topicsHTML}
               </div>
 
               <!-- Metadados e botões de ação -->
-              <div class="space-y-4 pt-3 border-t-2 border-dashed border-stone-200">
-                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-stone-600">
-                  <div class="flex flex-wrap items-center gap-3">
-                    <!-- Linguagem -->
-                    <span class="inline-flex items-center gap-1.5 font-semibold text-ink">
-                      <span class="w-2.5 h-2.5 rounded-full border border-ink/40" style="background-color: ${langColor}"></span>
-                      <span>${language}</span>
-                    </span>
-
-                    <!-- Estrelas -->
+              <div class="space-y-4 pt-3 border-t-2 border-dashed border-zinc-200">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-zinc-600">
+                  <div class="flex items-center gap-3.5">
                     <span class="inline-flex items-center gap-1" title="Estrelas">
-                      <svg class="w-3.5 h-3.5 text-mustard fill-current" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 text-amberBrand fill-current" viewBox="0 0 24 24">
                         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                       </svg>
                       <span>${stars}</span>
                     </span>
 
-                    <!-- Forks -->
                     <span class="inline-flex items-center gap-1" title="Forks">
-                      <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 3v12m0 0a3 3 0 106 0V9m0 0a3 3 0 116 0v3m-6-3v6" />
                       </svg>
                       <span>${forks}</span>
                     </span>
                   </div>
 
-                  <span class="text-[11px] text-stone-500">Atualizado em ${updatedAt}</span>
+                  <span class="text-[11px] text-zinc-500">Atualizado em ${updatedAt}</span>
                 </div>
 
-                <!-- Botões -->
                 <div class="flex flex-wrap items-center gap-2.5">
                   <a
                     href="${repoUrl}"
@@ -1387,10 +1051,10 @@
                     <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                     </svg>
-                    <span>Código no GitHub</span>
+                    <span>Ver Código</span>
                   </a>
 
-                  ${demoBtnHTML}
+                  ${demoButtonHTML}
                 </div>
               </div>
             </article>
@@ -1399,85 +1063,69 @@
         .join("");
     }
 
-    function renderAll() {
-      renderProfile();
-      renderLanguageFilters();
-      renderProjects();
+    /**
+     * Renderiza links opcionais de LinkedIn e E-mail no rodapé se estiverem preenchidos em CONTACT_CONFIG.
+     */
+    function renderOptionalContactLinks() {
+      if (CONTACT_CONFIG.linkedin && CONTACT_CONFIG.linkedin.trim()) {
+        const linkedinLink = document.createElement("a");
+        linkedinLink.href = CONTACT_CONFIG.linkedin.trim();
+        linkedinLink.target = "_blank";
+        linkedinLink.rel = "noopener noreferrer";
+        linkedinLink.className =
+          "inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-cobalt hover:bg-blue-800 text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all";
+        linkedinLink.textContent = "LinkedIn";
+        dom.contactLinksContainer.appendChild(linkedinLink);
+      }
+
+      if (CONTACT_CONFIG.email && CONTACT_CONFIG.email.trim()) {
+        const emailBtn = document.createElement("button");
+        emailBtn.type = "button";
+        emailBtn.className =
+          "inline-flex items-center gap-2 px-4 py-2.5 text-sm font-display font-semibold bg-emeraldBrand hover:bg-emerald-800 text-white border-2 border-ink rounded-xl shadow-editorial-sm transition-all cursor-pointer";
+        emailBtn.textContent = "Copiar E-mail";
+        emailBtn.addEventListener("click", () => copyTextToClipboard(CONTACT_CONFIG.email.trim()));
+        dom.contactLinksContainer.appendChild(emailBtn);
+      }
     }
 
     // =========================================================================
-    // EVENT LISTENERS E INICIALIZAÇÃO
+    // EVENT LISTENERS & INICIALIZAÇÃO
     // =========================================================================
 
-    // Formulário da barra superior
-    dom.configForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      fetchGitHubPortfolio(dom.usernameInput.value);
-    });
-
-    // Botão voltar ao modo exemplo
-    dom.resetDemoBtn.addEventListener("click", loadDemoMode);
-    dom.errorFallbackBtn.addEventListener("click", loadDemoMode);
-
-    // Ocultar / exibir barra superior de configuração
-    dom.toggleConfigBarBtn.addEventListener("click", () => {
-      dom.configBarWrapper.classList.add("hidden");
-      dom.showConfigBarBtn.classList.remove("hidden");
-    });
-
-    dom.showConfigBarBtn.addEventListener("click", () => {
-      dom.configBarWrapper.classList.remove("hidden");
-      dom.showConfigBarBtn.classList.add("hidden");
-      dom.usernameInput.focus();
-    });
-
-    // Busca em tempo real
     dom.searchInput.addEventListener("input", (e) => {
       state.searchQuery = e.target.value;
       renderProjects();
     });
 
-    // Ordenação
     dom.sortSelect.addEventListener("change", (e) => {
       state.sortBy = e.target.value;
       renderProjects();
     });
 
-    // Checkbox ocultar forks
-    dom.hideForksCheckbox.addEventListener("change", (e) => {
-      state.hideForks = e.target.checked;
+    dom.showForksCheckbox.addEventListener("change", (e) => {
+      state.showForks = e.target.checked;
       renderLanguageFilters();
       renderProjects();
     });
 
-    // Botão limpar filtros no estado vazio
     dom.clearFiltersBtn.addEventListener("click", () => {
       state.searchQuery = "";
       state.selectedLanguage = "Todos";
-      state.hideForks = false;
+      state.showForks = true;
       dom.searchInput.value = "";
-      dom.hideForksCheckbox.checked = false;
+      dom.showForksCheckbox.checked = true;
       renderLanguageFilters();
       renderProjects();
     });
 
-    // Copiar email no rodapé
-    dom.copyEmailBtn.addEventListener("click", () => {
-      copyTextToClipboard(PERSONAL_LINKS.email);
-    });
+    dom.retryFetchBtn.addEventListener("click", loadGitHubData);
 
-    // Inicialização da página
+    // Inicializa automaticamente carregando os dados reais de LuisGuiOli
     (function init() {
       dom.currentYear.textContent = new Date().getFullYear();
-      dom.footerLinkedinLink.href = PERSONAL_LINKS.linkedin;
-      dom.copyEmailBtn.setAttribute("data-email", PERSONAL_LINKS.email);
-
-      if (DEFAULT_GITHUB_USERNAME && DEFAULT_GITHUB_USERNAME.trim() !== "") {
-        dom.usernameInput.value = DEFAULT_GITHUB_USERNAME.trim();
-        fetchGitHubPortfolio(DEFAULT_GITHUB_USERNAME.trim());
-      } else {
-        renderAll();
-      }
+      renderOptionalContactLinks();
+      loadGitHubData();
     })();
   </script>
 </body>
